@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 【配置1】浏览器标签页标题 -->
+    <title>全网高质量恋爱搭子群</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #fff;
+            color: #333;
+            padding-bottom: 100px;
+        }
+        .main-img {
+            width: 100%;
+            display: block;
+        }
+        .pay-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            padding: 10px 15px 15px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+            z-index: 99;
+        }
+        .price-tip {
+            text-align: center;
+            color: #ff7a00;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .pay-btn {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 12px;
+            background-color: #1a47c9;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .pay-btn:active {
+            opacity: 0.9;
+        }
+        .mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 20px;
+        }
+        .mask.show {
+            display: flex;
+        }
+        .popup {
+            width: 100%;
+            max-width: 380px;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .popup-header {
+            background: #ed3089;
+            color: #fff;
+            text-align: center;
+            padding: 18px 15px;
+        }
+        .popup-header h3 {
+            font-size: 22px;
+            font-weight: 500;
+        }
+        .popup-body {
+            padding: 25px 20px;
+            text-align: center;
+        }
+        .code-img {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .code-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .code-tip {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+        .green-btn {
+            width: 100%;
+            height: 46px;
+            border: none;
+            border-radius: 23px;
+            background: #07c160;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .green-btn::before {
+            content: "✓";
+            font-size: 18px;
+        }
+        .green-btn:active {
+            opacity: 0.9;
+        }
+        .cancel-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 15px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .pwd-box {
+            margin-bottom: 18px;
+        }
+        .pwd-input {
+            width: 100%;
+            height: 44px;
+            padding: 0 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            margin-bottom: 10px;
+        }
+        .pwd-input:focus {
+            border-color: #07c160;
+        }
+        .error-tip {
+            color: #ff4d4f;
+            font-size: 13px;
+            text-align: center;
+            display: none;
+            margin-bottom: 10px;
+        }
+        .service-box {
+            border-top: 1px solid #f0f0f0;
+            padding-top: 18px;
+            margin-top: 5px;
+            text-align: left;
+        }
+        .pwd-tip {
+            color: #ff2222;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .service-title {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .service-item {
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .service-info .label {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 2px;
+        }
+        .service-info .num {
+            font-size: 15px;
+        }
+        .copy-btn {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 16px;
+            background: #1a47c9;
+            color: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+        .divider-tip {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            margin: 8px 0 10px;
+        }
+        .remark {
+            text-align: center;
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 主长图 -->
+    <img id="mainImg" src="" class="main-img" alt="">
+
+    <!-- 底部固定支付按钮 -->
+    <div class="pay-footer">
+        <div class="price-tip" id="priceTip"></div>
+        <button class="pay-btn" id="payBtn" onclick="openPayPopup()"></button>
+    </div>
+
+    <!-- 遮罩+弹窗 -->
+    <div class="mask" id="mask">
+        <div class="popup">
+            <!-- 第一步：收款码支付 -->
+            <div class="step active" id="step1">
+                <div class="popup-header">
+                    <h3 id="step1Title">微信扫码支付</h3>
+                    <p id="step1Subtitle" style="font-size:14px; opacity:0.9; margin-top:4px;"></p>
+                </div>
+                <div class="popup-body">
+                    <div class="code-img">
+                        <img id="payImg" src="" alt="微信收款码">
+                    </div>
+                    <p class="code-tip">长按识别二维码支付</p>
+                    <button class="green-btn" onclick="goStep2()" id="step1Btn"></button>
+                    <button class="cancel-btn" onclick="closePopup()">取消</button>
+                </div>
+            </div>
+
+            <!-- 第二步：密码验证 + 客服联系方式 -->
+            <div class="step" id="step2">
+                <div class="popup-header">
+                    <h3 id="step2Title">验证进群密码</h3>
+                </div>
+                <div class="popup-body">
+                    <div class="pwd-box">
+                        <input type="text" class="pwd-input" id="pwdInput" placeholder="请输入进群密码">
+                        <div class="error-tip" id="errorTip">密码错误，请联系客服获取</div>
+                    </div>
+                    <button class="green-btn" onclick="checkPwd()" id="step2Btn" style="border-radius: 8px;"></button>
+
+                    <div class="service-box">
+                        <div class="pwd-tip">付款后联系客服获取密码</div>
+                        
+                        <div class="service-title">📞 客服联系方式</div>
+
+                        <div class="service-item">
+                            <div class="service-info">
+                                <div class="label">客服QQ</div>
+                                <div class="num" id="qqNum"></div>
+                            </div>
+                            <button class="copy-btn" onclick="copyText('qqNum')">复制</button>
+                        </div>
+
+                        <div class="divider-tip">QQ添加失败请加快手号</div>
+
+                        <div class="service-item">
+                            <div class="service-info">
+                                <div class="label">客服快手号</div>
+                                <div class="num" id="ksNum"></div>
+                            </div>
+                            <button class="copy-btn" onclick="copyText('ksNum')">复制</button>
+                        </div>
+
+                        <p class="remark" id="remarkText"></p>
+                    </div>
+
+                    <button class="cancel-btn" onclick="closePopup()">取消</button>
+                </div>
+            </div>
+
+            <!-- 第三步：显示群二维码 -->
+            <div class="step" id="step3">
+                <div class="popup-header">
+                    <h3 id="step3Title">进群二维码</h3>
+                    <p style="font-size:14px; opacity:0.9; margin-top:4px;">长按识别二维码加入群聊</p>
+                </div>
+                <div class="popup-body">
+                    <div class="code-img">
+                        <img id="groupImg" src="" alt="进群二维码">
+                    </div>
+                    <button class="cancel-btn" onclick="closePopup()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ====================== 【批量配置区：以后做新群，只改这里就行】 ======================
+        const config = {
+            // 1. 图片路径
+            mainImg: "jiao/da.jpg",      // 主长图
+            payImg: "jiao/wei.jpg",     // 微信收款码
+            groupImg: "jiao/qun.jpg",     // 进群二维码
+
+            // 2. 价格文案
+            originalPrice: "29.9",               // 原价
+            currentPrice: "9.9",                 // 现价
+            priceTip: "限时特惠 · 明天恢复原价¥29.9", // 底部红色提示
+            payBtnText: "¥限时9.9元 进群",       // 底部按钮文字
+            paySubtitle: "支付¥9.9元 加入群聊",   // 收款码弹窗小字
+            step1BtnText: "已付款，查看群二维码", // 第一步绿色按钮
+            step2BtnText: "确认并查看群二维码",   // 第二步绿色按钮
+
+            // 3. 进群密码
+            password: "999",
+
+            // 4. 客服信息
+            qq: "3879458044",
+            kuaishou: "wang55550",
+            remark: "添加请备注：123"
+        };
+        // ====================================================================================
+
+        // 页面加载自动赋值
+        window.onload = function() {
+            document.getElementById('mainImg').src = config.mainImg;
+            document.getElementById('payImg').src = config.payImg;
+            document.getElementById('groupImg').src = config.groupImg;
+            
+            document.getElementById('priceTip').innerText = config.priceTip;
+            document.getElementById('payBtn').innerText = config.payBtnText;
+            document.getElementById('step1Subtitle').innerText = config.paySubtitle;
+            document.getElementById('step1Btn').innerText = config.step1BtnText;
+            document.getElementById('step2Btn').innerText = config.step2BtnText;
+
+            document.getElementById('qqNum').innerText = config.qq;
+            document.getElementById('ksNum').innerText = config.kuaishou;
+            document.getElementById('remarkText').innerText = config.remark;
+        };
+
+        // 核心功能逻辑
+        function openPayPopup() {
+            document.getElementById('mask').classList.add('show');
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step1').classList.add('active');
+        }
+
+        function closePopup() {
+            document.getElementById('mask').classList.remove('show');
+            document.getElementById('pwdInput').value = '';
+            document.getElementById('errorTip').style.display = 'none';
+        }
+
+        function goStep2() {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step2').classList.add('active');
+        }
+
+        function checkPwd() {
+            const input = document.getElementById('pwdInput').value.trim();
+            const errorTip = document.getElementById('errorTip');
+
+            if (input === config.password) {
+                errorTip.style.display = 'none';
+                document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+                document.getElementById('step3').classList.add('active');
+            } else {
+                errorTip.style.display = 'block';
+            }
+        }
+
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('已复制：' + text);
+            }).catch(() => {
+                const input = document.createElement('input');
+                input.value = text;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                alert('已复制：' + text);
+            });
+        }
+
+        document.getElementById('mask').addEventListener('click', function(e) {
+            if (e.target === this) closePopup();
+        });
+    </script>
+</body>
+</html>
